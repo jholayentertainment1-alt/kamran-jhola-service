@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamran Jhola Service</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#101827;color:white}
+header{text-align:center;padding:30px 15px;background:linear-gradient(135deg,#075985,#16a34a)}
+header h1{font-size:29px;margin:10px}
+header p{margin:8px}
+h2{text-align:center;color:#facc15}
+.container{padding:15px;max-width:850px;margin:auto}
+.rides{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px}
+.card{background:#1e293b;padding:12px;border-radius:14px;text-align:center}
+.card img{width:100%;height:125px;object-fit:cover;border-radius:10px;background:#334155}
+.card h3{font-size:17px}
+button{background:#16a34a;color:white;border:0;padding:12px;border-radius:9px;font-size:15px}
+.upload{display:block;margin:10px auto;background:#334155;padding:10px;border-radius:8px;width:100%}
+.contact{text-align:center;background:#1e293b;padding:20px;border-radius:14px;margin-top:20px}
+a{color:#4ade80;text-decoration:none}
+footer{text-align:center;padding:20px;color:#cbd5e1}
+</style>
+</head>
+<body>
+<header>
+<h1>🎡 Kamran Jhola Service</h1>
+<p>Fun • Entertainment • Complete Events Service</p>
+<p>Purani Chichawatni, District Sahiwal</p>
+</header>
+
+<div class="container">
+<h2>Our Rides</h2>
+<div class="rides" id="rides"></div>
+
+<h2>Add Your Ride Pictures</h2>
+<p style="text-align:center">Choose a ride and upload its picture.</p>
+<select id="rideSelect" class="upload">
+<option>Kashti Wala Jhula</option>
+<option>Aasmani Jhula</option>
+<option>Ghoro Wala Jhula</option>
+<option>Train Wala Jhula</option>
+<option>Slide</option>
+</select>
+<input class="upload" type="file" id="photo" accept="image/*">
+<button onclick="addPhoto()">Add Picture</button>
+
+<div class="contact">
+<h2>Book Your Event</h2>
+<p>For Schools, Colleges and Events</p>
+<p>WhatsApp Booking:</p>
+<p><a href="https://wa.me/923069064090">03069064090</a></p>
+<p><a href="https://wa.me/923131519455">03131519455</a></p>
+</div>
+</div>
+<footer>© Kamran Jhola Service</footer>
+
+<script>
+const names=[
+"Kashti Wala Jhula",
+"Aasmani Jhula",
+"Ghoro Wala Jhula",
+"Train Wala Jhula",
+"Slide"
+];
+let pictures={};
+function render(){
+document.getElementById("rides").innerHTML=names.map((n,i)=>`
+<div class="card">
+<img src="${pictures[n]||''}" alt="${n}">
+<h3>${n}</h3>
+<p>Contact for Price</p>
+</div>`).join("");
+}
+function addPhoto(){
+const file=document.getElementById("photo").files[0];
+const name=document.getElementById("rideSelect").value;
+if(!file){alert("Please choose a picture");return;}
+const reader=new FileReader();
+reader.onload=e=>{
+pictures[name]=e.target.result;
+render();
+alert("Picture added!");
+};
+reader.readAsDataURL(file);
+}
+render();
+</script>
+</body>
+</html>
